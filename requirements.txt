@@ -1,0 +1,7 @@
+reflex
+requests
+bs4
+selenium
+typing
+sqlalchemy
+icecream
