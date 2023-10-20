@@ -107,7 +107,7 @@ def remove_product_page():
                     margin_top = "2rem"
                 )
             ),
-            rx.center(
+            rx.box(
                 productlist(remove_product_button = True),
                 margin_top = "2rem",
                 text_align = "center"
