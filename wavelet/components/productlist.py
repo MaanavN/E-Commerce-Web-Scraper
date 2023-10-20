@@ -127,26 +127,30 @@ def productlist(remove_product_button=False, show_scrapes_button=False):
             rx.cond(
                 SelectState.display_scrape_data,
                 rx.responsive_grid(
-                    rx.responsive_grid(
-                        rx.container(
+                    rx.flex(
+                        rx.box(
                             rx.text(
                                 SelectState.product["product_name"],
                                 color = "rgb(188,188,188)"
-                            )
+                            ),
+                            margin_left = "20rem"
                         ),
-                        rx.container(
+                        rx.box(
                             rx.text(
                                 SelectState.product["sites"],
                                 color = "rgb(188,188,188)"
-                            )
+                            ),
+                            margin_left = "5rem"
                         ),
-                        rx.container(
+                        rx.box(
                             rx.text(
                                 SelectState.product["results"],
                                 color = "rgb(188,188,188)"
-                            )
+                            ),
+                            margin_left = "5rem",
+                            margin_right = "5rem"
                         ),
-                        columns = [3]
+                        margin_top = "2rem"
                     ),
                     rows = [1] #temp
                 ),
