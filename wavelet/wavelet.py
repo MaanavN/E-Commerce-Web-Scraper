@@ -21,7 +21,7 @@ def index():
             ),
             rx.center(
                 rx.text(
-                    "Interface",
+                    "Temporary Frontend",
                     font_size = '85px',
                     color = 'white',
                 ),

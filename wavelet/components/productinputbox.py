@@ -30,6 +30,8 @@ class InputState(BaseState):
 
                 if self.amazon == True:
                     product["sites"].append("amazon")
+                if self.walmart == True:
+                    product["sites"].append("walmart")
 
 
                 time.sleep(2)
@@ -47,6 +49,7 @@ class InputState(BaseState):
 
     #code for the checkboxes for each site
     amazon = False
+    walmart = False
 
     check_counter = 0
     error_message = ""
@@ -55,6 +58,14 @@ class InputState(BaseState):
         self.amazon = not self.amazon
 
         if self.amazon == True:
+            self.check_counter += 1
+        else:
+            self.check_counter -= 1
+
+    def toggle_walmart(self):
+        self.walmart = not self.walmart
+
+        if self.walmart == True:
             self.check_counter += 1
         else:
             self.check_counter -= 1
@@ -88,7 +99,14 @@ def product_input_box():
                     rx.checkbox(
                         "Amazon",
                         color_scheme = "blue",
-                        on_change = InputState.toggle_amazon()
+                        on_change = InputState.toggle_amazon(),
+                        margin_x = "1rem"
+                    ),
+                    rx.checkbox(
+                        "Walmart",
+                        color_scheme = "blue",
+                        on_change = InputState.toggle_walmart(),
+                        margin_x = "1rem"
                     ),
                     margin_top = "1rem",
                     margin_bottom = "0.25rem"

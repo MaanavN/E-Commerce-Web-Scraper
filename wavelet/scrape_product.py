@@ -1,4 +1,4 @@
-from . import amazon_scraper
+from . import amazon_scraper, walmart_scraper
 from icecream import ic
 import sqlalchemy
 import models
@@ -8,19 +8,25 @@ from .components import productinputbox
 
 def main(product):
     for site in product["sites"]:
-        for i in range(1, 5+1):
-            if site == "amazon":
-                result = amazon_scraper.main(product["product_name"])
+        if site == "amazon":
+            result = amazon_scraper.main(product["product_name"])
 
-                ic(f"{result} {len(result)}") #temp
-                
-                if len(result) > 10:
-                    product["results"].append(result)
-                    break
-                elif i == 5:
-                    ic("Failure") #temp
-                else:
-                    pass
+            ic(f"{result} {len(result)}") #temp
+            
+            if len(result) > 15:
+                product["results"].append(result)
+            else:
+                pass
+            
+        elif site == "walmart":
+            result = walmart_scraper.main(product["product_name"])
+
+            ic(f"{result} {len(result)}") #temp
+            
+            if len(result) > 15:
+                product["results"].append(result)
+            else:
+                pass
 
 
 

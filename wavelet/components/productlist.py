@@ -40,13 +40,14 @@ class SelectState(BaseState):
         models.delete_product(self.selection) # Delete selected product
 
     def show_scrapes(self):
-        self.display_scrape_data = not self.display_scrape_data
+        if self.selection != "":
+            self.display_scrape_data = not self.display_scrape_data
 
-        if self.display_scrape_data == True:
-            product = models.get_scrape_data(self.selection)
-            self.product = product
+            if self.display_scrape_data == True:
+                product = models.get_scrape_data(self.selection)
+                self.product = product
 
-            ic(f"Product: {self.product}") #temp
+                ic(f"Product: {self.product}") #temp
 
 
     # Resets State
@@ -148,7 +149,6 @@ def productlist(remove_product_button=False, show_scrapes_button=False):
                                 color = "rgb(188,188,188)"
                             ),
                             margin_left = "5rem",
-                            margin_right = "5rem"
                         ),
                         margin_top = "2rem"
                     ),

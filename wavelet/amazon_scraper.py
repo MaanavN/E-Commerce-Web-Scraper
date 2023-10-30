@@ -127,7 +127,14 @@ def filter_results(results, product):
 
 
 def main(product):
-    results = collect_search_results(product)
-    name_and_price = filter_results(results, product)
+    for i in range(1, 5+1):
+        results = collect_search_results(product)
+        name_and_price = filter_results(results, product)
+
+        if len(name_and_price) != 0:
+            break
+        else:
+            if i == 6:
+                name_and_price = "Problem while scraping, try again later."
 
     return f"Amazon: {name_and_price}"
