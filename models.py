@@ -16,7 +16,7 @@ class Product(Base):
 
     product_name = db.Column("product_name", db.String, primary_key = True)
     sites = db.Column("sites", db.String)
-    scrape_results = db.Column("scrape_results", db.String)
+    scrape_results = db.Column("scrape_results", db.VARCHAR(10000))
 
 
     def __init__(self, product_name, sites, scrape_results):
@@ -73,9 +73,11 @@ def get_scrape_data(productname):
 
     sites = str(sites)
     sites = sites.split("+++")
+    sites = " ".join(sites)
 
     results = str(results)
     results = results.split("+++")
+    results = " ".join(results)
     
     
     product["sites"].append(sites)
