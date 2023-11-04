@@ -1,5 +1,5 @@
 import boto3
-import os
+import ctypes
 from icecream import ic
 
 
@@ -58,7 +58,8 @@ def delete_product(product_name):
             if str(line) == product_name:
                 lines.remove(str(line))
 
-    os.remove("product_names.txt")
+    libc = ctypes.CDLL(None)
+    libc.unlink(b"product_names.txt")
     
     with open('product_names.txt', 'a') as file:
         for line in lines:
