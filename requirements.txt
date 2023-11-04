@@ -3,7 +3,6 @@ requests
 bs4
 selenium
 typing
-sqlalchemy
 icecream
 python-dotenv
 boto3
