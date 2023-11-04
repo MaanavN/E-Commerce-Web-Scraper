@@ -6,20 +6,16 @@ from .BaseState import BaseState
 
 
 # This function gets a list of products from the database
+
 def get_product_list():
-    query = models.query_database()
     product_list = []
-
-
-    ic("Running: get_product_list()")
-
-    for q in query:
-        # Getting rid of quotes and parenthesis around product name
-        q = str(q).split("'")
-        q = q[1] # Product name
-
-        ic(f"Appending: {q}")
-        product_list.append(str(q)) # Add product name to list
+    
+    try:
+        with open("product_names.txt", "r") as file:
+            lines = file.readlines()
+            product_list = [line.strip() for line in lines]
+    except FileNotFoundError:
+        pass
 
     return product_list
 
@@ -44,7 +40,7 @@ class SelectState(BaseState):
             self.display_scrape_data = not self.display_scrape_data
 
             if self.display_scrape_data == True:
-                product = models.get_scrape_data(self.selection)
+                product = models.query_database(self.selection)
                 self.product = product
 
                 ic(f"Product: {self.product}") #temp

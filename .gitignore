@@ -3,3 +3,5 @@
 .web
 __pycache__/
 wavelet/__pycache__/
+.env
+*.txt

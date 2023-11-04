@@ -1,100 +1,65 @@
-import reflex as rx
-import sqlalchemy as db
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+import boto3
+import os
 from icecream import ic
 
 
 
-Base = declarative_base()
-
-
-
-class Product(Base):
-    __tablename__ = "products"
-
-
-    product_name = db.Column("product_name", db.String, primary_key = True)
-    sites = db.Column("sites", db.String)
-    scrape_results = db.Column("scrape_results", db.VARCHAR(10000))
-
-
-    def __init__(self, product_name, sites, scrape_results):
-        self.product_name = product_name
-        self.sites = sites
-        self.scrape_results = scrape_results
-
-
-
-    def __repr__(self):
-        return f"({self.product_name} {self.sites} {self.scrape_results})"
-
-
-
-engine = db.create_engine("sqlite:///waveletdb.db", echo = True)
-Base.metadata.create_all(bind = engine)
-
-
-Session = sessionmaker(bind = engine)
-session = Session()
+dynamodb = boto3.resource('dynamodb')
+table = dynamodb.Table('WaveletDB')
 
 
 
 def create_entry(product):
-    product_name = product["product_name"]
-    sites = product["sites"]
-    results = product["results"]
-
-    #joining lists, sites and results, together into strings to store in database
-    sites = "+++".join(sites)
-    results = "+++".join(results)
-
-    session.add(Product(product_name, sites, results))
-    session.commit()
+    product_name = str(product["product_name"])
+    sites = str(product["sites"])
+    results = str(product["results"])
 
 
+    # Creating Entry in DB
+    table.put_item(
+        Item = {
+            "product_name": product_name,
+            "sites": sites,
+            "results": results
+        }
+    )
 
-def query_database():
-     query = session.query(Product.product_name).all()
 
-     return query
-
+    with open("product_names.txt", "a") as file:
+        file.write(f"{product_name}\n")
 
 
-def get_scrape_data(productname):
-    product = {
-        "product_name": productname,
-        "sites": [],
-        "results": []
-    }
 
-    sites = session.query(Product.sites).filter_by(product_name = productname).first()
-    results = session.query(Product.scrape_results).filter_by(product_name = productname).first()
+def query_database(product_name):
+    response = table.get_item(
+        Key = {
+            "product_name": product_name
+        }
+    )
+    product = response["Item"]
 
-    sites = str(sites)
-    sites = sites.split("+++")
-    sites = " ".join(sites)
-
-    results = str(results)
-    results = results.split("+++")
-    results = " ".join(results)
     
-    
-    product["sites"].append(sites)
-    product["results"].append(results)
-
     return product
 
 
 
-def delete_product(productname):
-    ic(productname)
-    product = session.query(Product).filter_by(product_name = productname).first()
+def delete_product(product_name):
+    table.delete_item(
+        Key = {
+            "product_name": product_name
+        }
+    )
 
-    if product:
-        session.delete(product)
-        session.commit()
+    with open("product_names.txt", "r") as file:
+        lines = file.readlines()
+        lines = [line.strip() for line in lines]
 
-        ic(f"Deleted product: {productname}")
-    else:
-        ic(f"Product: {productname} not found")
+        for line in lines:
+            if str(line) == product_name:
+                lines.remove(str(line))
+
+    os.remove("product_names.txt")
+    
+    with open('product_names.txt', 'a') as file:
+        for line in lines:
+            file.write(f"{line}\n")

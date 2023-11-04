@@ -5,3 +5,5 @@ selenium
 typing
 sqlalchemy
 icecream
+python-dotenv
+boto3

@@ -42,18 +42,7 @@ def index():
     )
 
 
-#changing text color in certain areas to improve visibility
-style = {
-        rx.Input: {
-            "color": "rgb(188,188,188)"
-        },
-        rx.Checkbox: {
-            "color": "rgb(188,188,188)"
-        },
-        rx.Select: {
-            "color": "rgb(188,188,188)"
-        }
-    }
+
 
 #creating page to add product
 def add_product_page():
@@ -123,6 +112,21 @@ def remove_product_page():
         left = "0px",
         background_color = "rgb(45,47,59)"
     )
+
+
+
+#changing text color in certain areas to improve visibility
+style = {
+        rx.Input: {
+            "color": "rgb(188,188,188)"
+        },
+        rx.Checkbox: {
+            "color": "rgb(188,188,188)"
+        },
+        rx.Select: {
+            "color": "rgb(188,188,188)"
+        }
+    }
 
 
 
