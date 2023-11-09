@@ -5,3 +5,8 @@ __pycache__/
 wavelet/__pycache__/
 .env
 *.txt
+wavelet/wavelet/__pycache__/
+wavelet/wavelet/components/__pycache__/
+wavelet/components/__pycache__/
+/wavelet/wavelet/__pycache__/
+/wavelet/wavelet/components/__pycache__/
