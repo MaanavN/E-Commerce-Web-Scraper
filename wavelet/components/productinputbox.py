@@ -9,11 +9,11 @@ import time
 
 #creating state to handle input
 class InputState(BaseState):
-    text = ""
+    text = "Enter a product..."
     processing_request = False
 
     def get_product(self):
-        if len(self.text) > 0 and self.processing_request == False:
+        if len(self.text) > 0 and self.processing_request == False and self.text != "Enter a product...":
             if self.check_counter <= 0:
                 self.error_message = "Please check atleast one box."
             else:

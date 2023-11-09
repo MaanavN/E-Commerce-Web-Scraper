@@ -10,35 +10,27 @@ def index():
     return rx.box(
         rx.responsive_grid(
             navbar(),
-            rx.divider(),
             rx.center(
                 rx.text(
-                    "Web-Scraper",
+                    "Welcome, Maanav",
                     font_size = '85px',
-                    color = "white",
-                    margin_top = '2rem',
+                    as_ = "b",
+                    background_image="linear-gradient(271.68deg, #EE756A 0.75%, #756AEE 88.52%)",
+                    background_clip="text",
+                    margin_top = '2rem'
                 ),
-            ),
-            rx.center(
-                rx.text(
-                    "Temporary Frontend",
-                    font_size = '85px',
-                    color = 'white',
-                ),
-            ),
-            rx.box(
-                productlist(show_scrapes_button = True),
-                margin_top = "1.5rem"
+                center_content = True,
+                margin_top = "15rem"
             ),
 
-            rows = [5]
+            rows = [2]
         ),
         width = '100%',
         height = '100%',
         position = 'fixed',
         top = '0px',
         left = '0px',
-        background_color = 'rgb(45,47,59)'
+        background_color = '#fafafa'
     )
 
 
@@ -53,7 +45,6 @@ def add_product_page():
             rx.center(
                 rx.text(
                     "Add Product",
-                    color = "white",
                     font_size = '50px',
                     margin_top = '2rem',
                  )
@@ -62,9 +53,9 @@ def add_product_page():
             rx.box(
                 rx.button(
                     InputState.text,
-                    text_color = "rgb(45,47,59)",
-                    bg = "rgb(45,47,59)",
-                    _hover = {"bg": "rgb(45,47,59)"}
+                    text_color = "#fafafa",
+                    bg = "#fafafa",
+                    _hover = {"bg": "#fafafa"}
                 ),
                 width = "20px"
             ),
@@ -77,7 +68,7 @@ def add_product_page():
         position = 'fixed',
         top = '0px',
         left = '0px',
-        background_color = 'rgb(45,47,59)',
+        background_color = '#fafafa',
     )
 
 
@@ -91,7 +82,6 @@ def remove_product_page():
             rx.center(
                 rx.text(
                     "Remove Product",
-                    color = "white",
                     font_size = "50px",
                     margin_top = "2rem"
                 )
@@ -110,12 +100,44 @@ def remove_product_page():
         position = "fixed",
         top = "0px",
         left = "0px",
-        background_color = "rgb(45,47,59)"
+        background_color = "#fafafa"
+    )
+
+
+
+def scrape_table_page():
+    return rx.box(
+        rx.responsive_grid(
+            navbar(),
+            rx.divider(),
+            rx.center(
+                rx.text(
+                    "Scrape Table",
+                    font_size = "50px",
+                    margin_top = "2rem"
+                )
+            ),
+            rx.box(
+                productlist(show_scrapes_button = True),
+                margin_top = "2rem",
+                text_align = "center"
+            ),
+
+            rows = [4]
+        ),
+        
+        width = "100%",
+        height = "100%",
+        position = "fixed",
+        top = "0px",
+        left = "0px",
+        background_color = "#fafafa"
     )
 
 
 
 #changing text color in certain areas to improve visibility
+"""
 style = {
         rx.Input: {
             "color": "rgb(188,188,188)"
@@ -127,11 +149,12 @@ style = {
             "color": "rgb(188,188,188)"
         }
     }
+""" #temp
 
 
 
 #compiling app
-app = rx.App(style = style)
+app = rx.App()
 app.add_page(index, image = "/favicon.ico", title = "Web-Scraper")
 app.add_page(
     add_product_page,
@@ -146,5 +169,11 @@ app.add_page(
     title = "Web-Scraper",
     image = "/favicon.ico",
     on_load = SelectState.reset_self()
+)
+app.add_page(
+    scrape_table_page,
+    route = "/scrapetable",
+    title = "Web-Scraper",
+    image = "/favicon.ico"
 )
 app.compile()
