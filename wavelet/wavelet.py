@@ -131,7 +131,8 @@ def scrape_table_page():
         position = "fixed",
         top = "0px",
         left = "0px",
-        background_color = "#fafafa"
+        background_color = "#fafafa",
+        overflow = "auto"
     )
 
 
