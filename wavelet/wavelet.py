@@ -1,7 +1,15 @@
 import reflex as rx
+import os
+from dotenv import load_dotenv
 from .components.navbar import navbar
 from .components.productinputbox import product_input_box, InputState
 from .components.productlist import productlist, SelectState
+
+
+
+load_dotenv()
+
+ORGANIZATION_NAME = os.getenv("ORGANIZATION_NAME")
 
 
 
