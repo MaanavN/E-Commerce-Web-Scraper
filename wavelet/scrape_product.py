@@ -24,7 +24,7 @@ def main(product):
             ic(f"{result} {len(result)}") #temp
             
             if len(result) > 15:
-                product["results"].append(result)
+                product["results"].append(f"\n{result}")
             else:
                 pass
 

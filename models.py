@@ -56,7 +56,7 @@ def query_database(product_name):
     )
     product = response["Item"]
 
-    
+    ic(f"query_database: {product}  temp") #temp
     return product
 
 
