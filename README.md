@@ -1,2 +1,3 @@
 # Wavelet
-E-commerce WebScraper SaaS
+E-commerce WebScraper
+Currently a work in progress
