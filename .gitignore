@@ -2,6 +2,7 @@
 *.py[cod]
 .web
 __pycache__/
+/__pycache__/
 wavelet/__pycache__/
 .env
 *.txt
